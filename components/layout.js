@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Head from 'next/head'
-import { faDev, faGithub, faLinkedinIn, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faDev, faGithub, faLinkedinIn, faTwitter, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -110,6 +110,12 @@ export default function Layout({ children }) {
             href='mailto:hi@ishtiaqsyed.com'
             target='_blank'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faEnvelope} />
+          </a>
+          <a
+            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
+            href='https://wa.me/16605287013'
+            target='_blank'>
+            <FontAwesomeIcon className='mr-6 text-2xl' icon={faWhatsapp} />
           </a>
         </motion.div>
       </div>
