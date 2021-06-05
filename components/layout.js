@@ -46,7 +46,7 @@ export default function Layout({ children }) {
     <div
       className='flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-blueGray-700'>
       <Head>
-
+        <title>Ishtiaq Syed</title>
       </Head>
       <div
         style={{ minWidth: '24rem', maxWidth: '37rem' }}
