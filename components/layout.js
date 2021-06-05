@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import { faDev, faGithub, faLinkedinIn, faTwitter, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faBlog, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
@@ -47,6 +47,7 @@ export default function Layout({ children }) {
       className='flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-blueGray-700'>
       <Head>
         <title>Ishtiaq Syed</title>
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
       <div
         style={{ minWidth: '24rem', maxWidth: '37rem' }}
@@ -110,6 +111,13 @@ export default function Layout({ children }) {
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
+            href='https://blog.ishtiaqsyed.com'
+            target='_blank'
+            rel='noopener noreferrer'>
+            <FontAwesomeIcon className='mr-6 text-2xl' icon={faBlog} />
+          </a>
+          <a
+            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='mailto:hi@ishtiaqsyed.com'
             target='_blank'
             rel='noopener noreferrer'>
@@ -118,6 +126,13 @@ export default function Layout({ children }) {
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://wa.me/16605287013'
+            target='_blank'
+            rel='noopener noreferrer'>
+            <FontAwesomeIcon className='mr-6 text-2xl' icon={faWhatsapp} />
+          </a>
+          <a
+            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
+            href='https://blog.ishtiaqsyed.com'
             target='_blank'
             rel='noopener noreferrer'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faWhatsapp} />
