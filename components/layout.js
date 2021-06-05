@@ -130,13 +130,6 @@ export default function Layout({ children }) {
             rel='noopener noreferrer'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faWhatsapp} />
           </a>
-          <a
-            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
-            href='https://blog.ishtiaqsyed.com'
-            target='_blank'
-            rel='noopener noreferrer'>
-            <FontAwesomeIcon className='mr-6 text-2xl' icon={faWhatsapp} />
-          </a>
         </motion.div>
       </div>
     </div>
