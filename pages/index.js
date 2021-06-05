@@ -11,7 +11,7 @@ export default function Home() {
         transition={{ duration: 0.5, delay: 0.2 }}
         className='flex flex-col items-center justify-center'>
         <div className='flex flex-col items-center justify-center'>
-          <img className='w-32 h-32 mb-8 rounded-full' src='/ishtiaq.jpg' alt='Photo of Ishtiaq' />
+          <img width="8rem" height="8rem" className='w-32 h-32 mb-8 rounded-full' src='/ishtiaq.jpeg' alt='Photo of Ishtiaq' />
           <h1 className='mx-auto text-2xl font-semibold tracking-widest text-center sm:text-3xl'>
             ISHTIAQ UL HAQ SYED
           </h1>

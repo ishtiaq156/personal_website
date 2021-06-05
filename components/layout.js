@@ -48,6 +48,10 @@ export default function Layout({ children }) {
       <Head>
         <title>Ishtiaq Syed</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='theme-color' content='#334155' />
+        <meta name='description' content='Personal Website for Ishtiaq Ul Haq Syed - Software Engineer.' />
+        <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
+        <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />
       </Head>
       <div
         style={{ minWidth: '24rem', maxWidth: '37rem' }}
@@ -84,37 +88,43 @@ export default function Layout({ children }) {
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://github.com/ishtiaq156'
-            target='_blank'>
-            <FontAwesomeIcon className='mr-6 text-2xl ' icon={faGithub} />
+            target='_blank'
+            rel='noopener noreferrer'>
+            <FontAwesomeIcon className='mr-6 text-2xl' icon={faGithub} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://twitter.com/ishtiaq156'
-            target='_blank'>
+            target='_blank'
+            rel='noopener noreferrer'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faTwitter} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://www.linkedin.com/in/ishtiaq-syed5456/'
-            target='_blank'>
+            target='_blank'
+            rel='noopener noreferrer'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faLinkedinIn} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://dev.to/ishtiaq156'
-            target='_blank'>
+            target='_blank'
+            rel='noopener noreferrer'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faDev} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='mailto:hi@ishtiaqsyed.com'
-            target='_blank'>
+            target='_blank'
+            rel='noopener noreferrer'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faEnvelope} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://wa.me/16605287013'
-            target='_blank'>
+            target='_blank'
+            rel='noopener noreferrer'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faWhatsapp} />
           </a>
         </motion.div>
