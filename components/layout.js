@@ -85,49 +85,56 @@ export default function Layout({ children }) {
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://github.com/ishtiaq156'
             target='_blank'
-            rel='noopener noreferrer'>
+            rel='noopener noreferrer'
+            aria-label='GitHub'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faGithub} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://twitter.com/ishtiaq156'
             target='_blank'
-            rel='noopener noreferrer'>
+            rel='noopener noreferrer'
+            aria-label='Twitter'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faTwitter} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://www.linkedin.com/in/ishtiaq-syed5456/'
             target='_blank'
-            rel='noopener noreferrer'>
+            rel='noopener noreferrer'
+            aria-label='LinkedIn'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faLinkedinIn} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://dev.to/ishtiaq156'
             target='_blank'
-            rel='noopener noreferrer'>
+            rel='noopener noreferrer'
+            aria-label='Dev.to'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faDev} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://blog.ishtiaqsyed.com'
             target='_blank'
-            rel='noopener noreferrer'>
+            rel='noopener noreferrer'
+            aria-label='Blog'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faBlog} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='mailto:hi@ishtiaqsyed.com'
             target='_blank'
-            rel='noopener noreferrer'>
+            rel='noopener noreferrer'
+            aria-label='Email'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faEnvelope} />
           </a>
           <a
             className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
             href='https://wa.me/16605287013'
             target='_blank'
-            rel='noopener noreferrer'>
+            rel='noopener noreferrer'
+            aria-label='WhatsApp'>
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faWhatsapp} />
           </a>
         </motion.div>
