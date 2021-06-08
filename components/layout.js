@@ -47,7 +47,7 @@ export default function Layout({ children }) {
       className='flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-blueGray-700'>
       <Head>
         <title>Ishtiaq Syed</title>
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
       <div
         style={{ minWidth: '24rem', maxWidth: '37rem' }}
