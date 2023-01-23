@@ -44,7 +44,7 @@ export default function Layout({ children }) {
 
   return (
     <div
-      className='flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-blueGray-700'>
+      className='flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-slate-700'>
       <Head>
         <title>Ishtiaq Syed</title>
         <meta name='viewport' content='initial-scale=1, width=device-width' />
@@ -64,13 +64,13 @@ export default function Layout({ children }) {
         <motion.div layoutId='nav' className='flex flex-wrap justify-center leading-6'>
           <Link href='/'>
             <button
-              className='w-24 py-1 text-xs leading-6 tracking-widest border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-lightBlue-600 hover:border-lightBlue-600 dark:hover:text-pink-500'>
+              className='w-24 py-1 text-xs leading-6 tracking-widest border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-sky-600 hover:border-sky-600 dark:hover:text-pink-500'>
               HOME
             </button>
           </Link>
           <Link href='/about'>
             <button
-              className='w-24 py-1 mx-2 text-xs leading-6 tracking-widest border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-lightBlue-600 hover:border-lightBlue-600 dark:hover:text-pink-500'>
+              className='w-24 py-1 mx-2 text-xs leading-6 tracking-widest border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-sky-600 hover:border-sky-600 dark:hover:text-pink-500'>
               ABOUT
             </button>
           </Link>
@@ -78,11 +78,11 @@ export default function Layout({ children }) {
         <motion.div
           layoutId='border-div'
           className='flex flex-col items-center justify-center w-full py-8 my-6 border-t border-b border-gray-300 dark:border-white'>
-          <AnimatePresence exitBeforeEnter>{children}</AnimatePresence>
+          <AnimatePresence mode='wait'>{children}</AnimatePresence>
         </motion.div>
         <motion.div layoutId='social-icons' className='flex items-center justify-center'>
           <a
-            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
+            className='text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500'
             href='https://github.com/ishtiaq156'
             target='_blank'
             rel='noopener noreferrer'
@@ -90,7 +90,7 @@ export default function Layout({ children }) {
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faGithub} />
           </a>
           <a
-            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
+            className='text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500'
             href='https://twitter.com/ishtiaq156'
             target='_blank'
             rel='noopener noreferrer'
@@ -98,7 +98,7 @@ export default function Layout({ children }) {
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faTwitter} />
           </a>
           <a
-            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
+            className='text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500'
             href='https://www.linkedin.com/in/ishtiaq-syed5456/'
             target='_blank'
             rel='noopener noreferrer'
@@ -106,7 +106,7 @@ export default function Layout({ children }) {
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faLinkedinIn} />
           </a>
           <a
-            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
+            className='text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500'
             href='https://dev.to/ishtiaq156'
             target='_blank'
             rel='noopener noreferrer'
@@ -114,7 +114,7 @@ export default function Layout({ children }) {
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faDev} />
           </a>
           <a
-            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
+            className='text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500'
             href='https://blog.ishtiaqsyed.com'
             target='_blank'
             rel='noopener noreferrer'
@@ -122,7 +122,7 @@ export default function Layout({ children }) {
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faBlog} />
           </a>
           <a
-            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
+            className='text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500'
             href='mailto:hi@ishtiaqsyed.com'
             target='_blank'
             rel='noopener noreferrer'
@@ -130,7 +130,7 @@ export default function Layout({ children }) {
             <FontAwesomeIcon className='mr-6 text-2xl' icon={faEnvelope} />
           </a>
           <a
-            className='text-gray-400 dark:text-white hover:text-lightBlue-600 dark:hover:text-pink-500'
+            className='text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500'
             href='https://wa.me/16605287013'
             target='_blank'
             rel='noopener noreferrer'
