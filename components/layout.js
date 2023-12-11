@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import dynamic from 'next/dynamic'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/react'
 
 const DarkModeToggle = dynamic(
   function DarkModeToggle() {
@@ -159,6 +160,7 @@ export default function Layout({ children }) {
         </motion.div>
       </div>
       <SpeedInsights />
+      <Analytics />
     </div>
   )
 }
