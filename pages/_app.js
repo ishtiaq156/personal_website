@@ -1,8 +1,8 @@
 import 'tailwindcss/tailwind.css'
-import { AnimateSharedLayout } from 'framer-motion'
+import { LayoutGroup } from 'framer-motion'
 import { useEffect } from 'react'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component }) {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
@@ -17,9 +17,9 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <AnimateSharedLayout>
-      <Component {...pageProps} />
-    </AnimateSharedLayout>
+    <LayoutGroup>
+      <Component />
+    </LayoutGroup>
   )
 }
 
