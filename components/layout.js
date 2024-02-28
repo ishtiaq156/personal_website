@@ -4,7 +4,7 @@ import {
   faDev,
   faGithub,
   faLinkedinIn,
-  faTwitter,
+  faXTwitter,
   faWhatsapp,
 } from '@fortawesome/free-brands-svg-icons'
 import { faBlog, faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -110,7 +110,7 @@ export default function Layout({ children }) {
             rel="noopener noreferrer"
             aria-label="Twitter"
           >
-            <FontAwesomeIcon className="mr-6 text-2xl" icon={faTwitter} />
+            <FontAwesomeIcon className="mr-6 text-2xl" icon={faXTwitter} />
           </a>
           <a
             className="text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500"
