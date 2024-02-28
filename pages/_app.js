@@ -5,12 +5,10 @@ import { useEffect } from 'react'
 function MyApp({ Component }) {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
+      window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js').then(
-          function(registration) {
-          },
-          function(err) {
-          },
+          function (registration) {},
+          function (err) {}
         )
       })
     }
