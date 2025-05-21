@@ -1,8 +1,9 @@
 {
   "name": "Ishtiaq Syed",
   "short_name": "Ishtiaq Syed",
-  "start_url": ".",
-  "display": "fullscreen",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "description": "Personal Website for Ishtiaq Ul Haq Syed - Software Engineer.",

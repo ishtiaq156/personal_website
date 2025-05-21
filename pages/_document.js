@@ -18,6 +18,9 @@ class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
           <meta name="apple-mobile-web-app-status-bar" content="#ffffff" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-title" content="Ishtiaq Syed" />
+          <meta name="application-name" content="Ishtiaq Syed" />
           <meta
             name="description"
             content="Personal Website for Ishtiaq Ul Haq Syed - Software Engineer."
