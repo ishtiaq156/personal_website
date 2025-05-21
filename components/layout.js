@@ -105,16 +105,16 @@ export default function Layout({ children }) {
           </a>
           <a
             className="text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500"
-            href="https://twitter.com/ishtiaq156"
+            href="https://x.com/ishtiaq156"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Twitter"
+            aria-label="X (formerly Twitter)"
           >
             <FontAwesomeIcon className="mr-6 text-2xl" icon={faXTwitter} />
           </a>
           <a
             className="text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500"
-            href="https://www.linkedin.com/in/ishtiaq-syed5456/"
+            href="https://www.linkedin.com/in/ishtiaq156"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
