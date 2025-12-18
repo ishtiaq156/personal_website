@@ -13,8 +13,8 @@ export default function Home() {
       >
         <div className="flex flex-col items-center justify-center">
           <img
-            width="8rem"
-            height="8rem"
+            width="200"
+            height="200"
             className="w-32 h-32 mb-8 rounded-full"
             src="/ishtiaq.jpeg"
             alt="Photo of Ishtiaq"
