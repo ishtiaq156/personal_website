@@ -10,7 +10,7 @@ import {
 import { faBlog, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, ReactNode } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import dynamic from "next/dynamic";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -23,7 +23,11 @@ const DarkModeToggle = dynamic(
   { ssr: false },
 );
 
-export default function Layout({ children }) {
+type LayoutProps = {
+  children: ReactNode;
+};
+
+export default function Layout({ children }: LayoutProps) {
   const [theme, setTheme] = useLocalStorage("theme", "light");
 
   useEffect(() => {

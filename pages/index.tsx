@@ -1,7 +1,9 @@
 import Layout from "../components/layout";
 import { motion } from "framer-motion";
+import { NextPage } from "next";
+import Image from "next/image";
 
-export default function Home() {
+const Home: NextPage = () => {
   return (
     <Layout>
       <motion.div
@@ -12,7 +14,7 @@ export default function Home() {
         className="flex flex-col items-center justify-center"
       >
         <div className="flex flex-col items-center justify-center">
-          <img
+          <Image
             width="200"
             height="200"
             className="w-32 h-32 mb-8 rounded-full"
@@ -30,4 +32,6 @@ export default function Home() {
       </motion.div>
     </Layout>
   );
-}
+};
+
+export default Home;

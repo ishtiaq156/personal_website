@@ -1,9 +1,12 @@
 import Layout from "../components/layout";
+import { NextPage } from "next";
 
-export default function Projects() {
+const Projects: NextPage = () => {
   return (
     <Layout>
       <div>projects</div>
     </Layout>
   );
-}
+};
+
+export default Projects;
