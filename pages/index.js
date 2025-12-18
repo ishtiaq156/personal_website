@@ -1,5 +1,5 @@
-import Layout from '../components/layout'
-import { motion } from 'framer-motion'
+import Layout from "../components/layout";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
@@ -23,9 +23,11 @@ export default function Home() {
             ISHTIAQ UL HAQ SYED
           </h1>
           <hr className="w-16 my-8 border-gray-300" />
-          <h2 className="text-lg tracking-widest text-center">SOFTWARE ENGINEER</h2>
+          <h2 className="text-lg tracking-widest text-center">
+            SOFTWARE ENGINEER
+          </h2>
         </div>
       </motion.div>
     </Layout>
-  )
+  );
 }

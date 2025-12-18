@@ -1,59 +1,60 @@
-import Link from 'next/link'
-import Head from 'next/head'
+import Link from "next/link";
+import Head from "next/head";
 import {
   faDev,
   faGithub,
   faLinkedinIn,
   faXTwitter,
   faWhatsapp,
-} from '@fortawesome/free-brands-svg-icons'
-import { faBlog, faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect } from 'react'
-import { useLocalStorage } from '../hooks/useLocalStorage'
-import dynamic from 'next/dynamic'
-import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Analytics } from '@vercel/analytics/react'
+} from "@fortawesome/free-brands-svg-icons";
+import { faBlog, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import dynamic from "next/dynamic";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const DarkModeToggle = dynamic(
   function DarkModeToggle() {
-    return import('dark-mode-toggle-animation')
+    return import("dark-mode-toggle-animation");
   },
-  { ssr: false }
-)
+  { ssr: false },
+);
 
 export default function Layout({ children }) {
-  const [theme, setTheme] = useLocalStorage('theme', 'light')
+  const [theme, setTheme] = useLocalStorage("theme", "light");
 
   useEffect(() => {
     if (
-      localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
-      document.getElementsByTagName('html')[0].classList.add('dark')
+      document.getElementsByTagName("html")[0].classList.add("dark");
     } else {
-      document.getElementsByTagName('html')[0].classList.remove('dark')
+      document.getElementsByTagName("html")[0].classList.remove("dark");
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if (theme === 'dark') {
-      document.getElementsByTagName('html')[0].classList.add('dark')
-      localStorage.theme = 'dark'
+    if (theme === "dark") {
+      document.getElementsByTagName("html")[0].classList.add("dark");
+      localStorage.theme = "dark";
     } else {
-      document.getElementsByTagName('html')[0].classList.remove('dark')
-      localStorage.theme = 'light'
+      document.getElementsByTagName("html")[0].classList.remove("dark");
+      localStorage.theme = "light";
     }
-  }, [theme])
+  }, [theme]);
 
   const toggleDarkMode = () => {
-    if (theme === 'dark') {
-      setTheme('light')
+    if (theme === "dark") {
+      setTheme("light");
     } else {
-      setTheme('dark')
+      setTheme("dark");
     }
-  }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-slate-700">
@@ -62,12 +63,12 @@ export default function Layout({ children }) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <div
-        style={{ minWidth: '24rem', maxWidth: '37rem' }}
+        style={{ minWidth: "24rem", maxWidth: "37rem" }}
         className="flex flex-col items-center justify-center w-2/3"
       >
         <div className="fixed cursor-pointer top-3 right-3">
           <DarkModeToggle
-            mode={theme === 'dark' ? 'sun' : 'moon'}
+            mode={theme === "dark" ? "sun" : "moon"}
             onClick={toggleDarkMode}
             width="3rem"
             moonColor="#334155"
@@ -75,7 +76,10 @@ export default function Layout({ children }) {
             animationDuration={1}
           />
         </div>
-        <motion.div layoutId="nav" className="flex flex-wrap justify-center leading-6">
+        <motion.div
+          layoutId="nav"
+          className="flex flex-wrap justify-center leading-6"
+        >
           <Link href="/">
             <button className="w-24 py-1 text-xs leading-6 tracking-widest border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-sky-600 hover:border-sky-600 dark:hover:text-pink-500">
               HOME
@@ -93,7 +97,10 @@ export default function Layout({ children }) {
         >
           <AnimatePresence mode="wait">{children}</AnimatePresence>
         </motion.div>
-        <motion.div layoutId="social-icons" className="flex items-center justify-center">
+        <motion.div
+          layoutId="social-icons"
+          className="flex items-center justify-center"
+        >
           <a
             className="text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500"
             href="https://github.com/ishtiaq156"
@@ -162,5 +169,5 @@ export default function Layout({ children }) {
       <SpeedInsights />
       <Analytics />
     </div>
-  )
+  );
 }
