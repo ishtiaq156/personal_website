@@ -1,5 +1,8 @@
-module.exports = {
+import type { NextConfig } from 'next'
+
+const nextConfig: NextConfig = {
   logging: false,
+
   // PWA configuration
   headers: async () => {
     return [
@@ -15,3 +18,5 @@ module.exports = {
     ]
   },
 }
+
+export default nextConfig
