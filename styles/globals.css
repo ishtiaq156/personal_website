@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+/* Restore class-based dark mode — replaces `darkMode: 'class'` from the old tailwind.config.js.
+   Without this, v4 defaults to prefers-color-scheme media query, so toggling the .dark
+   class on <html> has no effect. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  /* v4 Preflight removed cursor: pointer from buttons — restore it globally */
+  button {
+    cursor: pointer;
+  }
+}

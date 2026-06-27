@@ -1,6 +1,6 @@
 import { LayoutGroup } from "framer-motion";
 import { useEffect } from "react";
-import "tailwindcss/tailwind.css";
+import "../styles/globals.css";
 
 function MyApp({ Component }) {
   useEffect(() => {
