@@ -1,7 +1,6 @@
 import Layout from "../components/layout";
 import { motion } from "framer-motion";
 import { NextPage } from "next";
-import { ABOUT_PARAGRAPHS } from "../lib/siteContent";
 
 const About: NextPage = () => {
   return (
@@ -13,10 +12,15 @@ const About: NextPage = () => {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="px-4"
       >
-        <div className="space-y-4 text-center text-gray-800 dark:text-white">
-          {ABOUT_PARAGRAPHS.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
+        <div className="mb-6 text-center text-gray-800 dark:text-white">
+          Hi, I&apos;m Ishtiaq! I am a Software Engineer with a passion for
+          developing web and mobile applications that make a positive impact on
+          peoples lives.
+        </div>
+        <div className="text-center text-gray-800 dark:text-white">
+          In addition to coding and learning new tech, I enjoy playing video
+          games, watching movies, and going to beaches. If any of these things
+          interest you too, I&apos;d love to chat!
         </div>
       </motion.div>
     </Layout>

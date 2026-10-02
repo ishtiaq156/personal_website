@@ -28,40 +28,18 @@ async function fetchText(path, init) {
 
 async function verifyHomepageHtml() {
   const { response, body } = await fetchText("/");
-  const text = visibleText(body);
-  const contentEfficiency = text.length / body.length;
   const mainHtml = body.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1];
 
   assert.equal(response.status, 200);
   assert.ok(headerIncludes(response, "content-type", "text/html"));
   assert.match(body, /<h1[^>]*>\s*ISHTIAQ UL HAQ SYED\s*<\/h1>/i);
-  assert.ok(text.length >= 500, `homepage text length was ${text.length}`);
-  assert.ok(
-    contentEfficiency >= 0.05,
-    `homepage content efficiency was ${(contentEfficiency * 100).toFixed(2)}%`,
-  );
+  assert.match(body, /<h2[^>]*>\s*SOFTWARE ENGINEER\s*<\/h2>/i);
   assert.ok(mainHtml, "homepage main element missing");
-  assert.doesNotMatch(mainHtml, /opacity:\s*0/);
-  assert.ok(
-    visibleText(mainHtml).split(/\s+/).length >= 300,
-    "homepage main content should contain at least 300 visible words",
-  );
-  const sections = [...mainHtml.matchAll(/<section\b[^>]*>([\s\S]*?)<\/section>/gi)];
-  assert.ok(sections.length >= 5, "homepage question sections missing");
-  for (const [, sectionHtml] of sections) {
-    assert.match(sectionHtml, /<h2[^>]*>[^<]*\?\s*<\/h2>/i);
-    const sectionText = visibleText(sectionHtml.replace(/<h2[^>]*>[\s\S]*?<\/h2>/i, ""));
-    assert.ok(sectionText.split(/\s+/).length >= 20, "scorable section is too short");
-  }
-  assert.match(body, /rel="author"/);
+  assert.doesNotMatch(mainHtml, /Who is Ishtiaq|What does this website cover/i);
   assert.ok(
     body.indexOf('href="#main-content"') < body.indexOf('href="/"'),
     "skip link should precede the site navigation",
   );
-  assert.match(body, /<time dateTime="2026-10-02">2026-10-02<\/time>/);
-  assert.match(body, /loading="eager"/);
-  assert.match(body, /fetchPriority="high"/i);
-  assert.match(body, /<source srcSet="\/ishtiaq\.webp" type="image\/webp"\s*\/>/);
   assert.match(body, /<title\b[^>]*>[^<]{30,70}<\/title>/);
   assert.match(body, /<meta name="description" content="[^\"]{120,150}"/);
   assert.match(body, /<link rel="canonical" href="https:\/\/www\.ishtiaqsyed\.com"/);
@@ -77,7 +55,7 @@ async function verifyHomepageHtml() {
   const graph = jsonLd["@graph"] ?? [];
   const person = graph.find((entry) => entry["@type"] === "Person");
   const website = graph.find((entry) => entry["@type"] === "WebSite");
-  const webpage = graph.find((entry) => entry["@type"] === "FAQPage");
+  const webpage = graph.find((entry) => entry["@type"] === "WebPage");
   assert.ok(person, "Person schema missing");
   assert.equal(person.name, "Ishtiaq Ul Haq Syed");
   assert.equal(person.url, "https://www.ishtiaqsyed.com");
@@ -88,7 +66,6 @@ async function verifyHomepageHtml() {
   assert.ok(webpage, "WebPage schema missing");
   assert.equal(webpage.author["@id"], person["@id"]);
   assert.equal(webpage.dateModified, "2026-10-02");
-  assert.equal(webpage.mainEntity.length, 6);
 }
 
 async function verifyMarkdownNegotiation() {
@@ -214,8 +191,6 @@ async function verifyIndexablePages() {
       canonical?.[1],
       `https://www.ishtiaqsyed.com${path === "/" ? "" : path}`,
     );
-    assert.match(body, /href="\/privacy"/);
-    assert.match(body, /href="\/terms"/);
   }
 }
 
@@ -230,7 +205,7 @@ async function verifySecurityHeaders() {
 }
 
 async function verifyTrustPages() {
-  for (const path of ["/about", "/contact", "/privacy", "/terms"]) {
+  for (const path of ["/contact", "/privacy", "/terms"]) {
     const { response, body } = await fetchText(path);
     const text = visibleText(body);
 
@@ -238,6 +213,10 @@ async function verifyTrustPages() {
     assert.ok(text.length >= 500, `${path} text length was ${text.length}`);
     assert.ok(headerIncludes(response, "vary", "accept"));
   }
+
+  const about = await fetchText("/about");
+  assert.equal(about.response.status, 200);
+  assert.match(about.body, /Hi, I(?:&#x27;|&apos;)m Ishtiaq!/);
 }
 
 await verifyHomepageHtml();

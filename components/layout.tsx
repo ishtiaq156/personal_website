@@ -82,7 +82,7 @@ export default function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen min-h-screen py-12 text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-slate-700">
+    <div className="flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-slate-700">
       <a
         className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:text-black"
         href="#main-content"
@@ -106,8 +106,8 @@ export default function Layout({ children }: LayoutProps) {
         <meta name="twitter:image" content={PROFILE_IMAGE_URL} />
       </Head>
       <div
-        style={{ maxWidth: "37rem" }}
-        className="flex flex-col items-center justify-center w-11/12 sm:w-2/3"
+        style={{ minWidth: "24rem", maxWidth: "37rem" }}
+        className="flex flex-col items-center justify-center w-2/3"
       >
         <div className="fixed cursor-pointer top-3 right-3">
           <DarkModeToggle
@@ -210,29 +210,6 @@ export default function Layout({ children }: LayoutProps) {
             <FontAwesomeIcon className="mr-6 text-2xl" icon={faWhatsapp} />
           </a>
         </motion.div>
-        <nav
-          aria-label="Site information"
-          className="flex justify-center gap-5 mt-6 text-xs"
-        >
-          <Link
-            className="hover:text-sky-600 dark:hover:text-pink-500"
-            href="/contact"
-          >
-            Contact
-          </Link>
-          <Link
-            className="hover:text-sky-600 dark:hover:text-pink-500"
-            href="/privacy"
-          >
-            Privacy
-          </Link>
-          <Link
-            className="hover:text-sky-600 dark:hover:text-pink-500"
-            href="/terms"
-          >
-            Terms
-          </Link>
-        </nav>
       </div>
       <SpeedInsights />
       <Analytics />
