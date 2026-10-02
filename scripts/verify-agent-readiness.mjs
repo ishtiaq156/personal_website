@@ -28,18 +28,12 @@ async function fetchText(path, init) {
 
 async function verifyHomepageHtml() {
   const { response, body } = await fetchText("/");
-  const mainHtml = body.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1];
 
   assert.equal(response.status, 200);
   assert.ok(headerIncludes(response, "content-type", "text/html"));
   assert.match(body, /<h1[^>]*>\s*ISHTIAQ UL HAQ SYED\s*<\/h1>/i);
   assert.match(body, /<h2[^>]*>\s*SOFTWARE ENGINEER\s*<\/h2>/i);
-  assert.ok(mainHtml, "homepage main element missing");
-  assert.doesNotMatch(mainHtml, /Who is Ishtiaq|What does this website cover/i);
-  assert.ok(
-    body.indexOf('href="#main-content"') < body.indexOf('href="/"'),
-    "skip link should precede the site navigation",
-  );
+  assert.doesNotMatch(body, /Who is Ishtiaq|What does this website cover/i);
   assert.match(body, /<title\b[^>]*>[^<]{30,70}<\/title>/);
   assert.match(body, /<meta name="description" content="[^\"]{120,150}"/);
   assert.match(body, /<link rel="canonical" href="https:\/\/www\.ishtiaqsyed\.com"/);

@@ -83,12 +83,6 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-slate-700">
-      <a
-        className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:text-black"
-        href="#main-content"
-      >
-        Skip to main content
-      </a>
       <Head>
         <title>{pageTitle}</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -138,9 +132,7 @@ export default function Layout({ children }: LayoutProps) {
           layoutId="border-div"
           className="flex flex-col items-center justify-center w-full py-8 my-6 border-t border-b border-gray-300 dark:border-white"
         >
-          <main id="main-content" className="w-full">
-            <AnimatePresence mode="wait">{children}</AnimatePresence>
-          </main>
+          <AnimatePresence mode="wait">{children}</AnimatePresence>
         </motion.div>
         <motion.div
           layoutId="social-icons"
