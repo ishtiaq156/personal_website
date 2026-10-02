@@ -6,7 +6,7 @@ export const SITE_DESCRIPTION =
   "Personal site for Ishtiaq Ul Haq Syed, a software engineer focused on web and mobile applications, public profiles, and contact details.";
 export const CONTACT_EMAIL = "hi@ishtiaqsyed.com";
 export const CONTACT_PHONE = "+1-660-528-7013";
-export const PROFILE_IMAGE_URL = `${SITE_URL}/ishtiaq.jpeg`;
+export const PROFILE_IMAGE_URL = `${SITE_URL}/ishtiaq.webp`;
 export const LAST_MODIFIED = "2026-10-02";
 
 export const SAME_AS_URLS = [

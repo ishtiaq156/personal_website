@@ -89,6 +89,8 @@ export default function Layout({ children }: LayoutProps) {
         <meta name="description" content={SITE_DESCRIPTION} />
         <link rel="canonical" href={canonicalUrl} />
         <link rel="describedby" href="/llms.txt" type="text/plain" />
+        <link rel="privacy-policy" href={`${SITE_URL}/privacy`} />
+        <link rel="terms-of-service" href={`${SITE_URL}/terms`} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={pageTitle} />

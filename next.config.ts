@@ -13,6 +13,11 @@ const securityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=()",
   },
+  {
+    key: "Link",
+    value:
+      '<https://www.ishtiaqsyed.com/privacy>; rel="privacy-policy", <https://www.ishtiaqsyed.com/terms>; rel="terms-of-service"',
+  },
 ];
 
 const nextConfig: NextConfig = {

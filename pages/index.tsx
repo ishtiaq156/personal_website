@@ -84,8 +84,10 @@ const Home: NextPage = () => {
             width="200"
             height="200"
             className="w-32 h-32 mb-8 rounded-full"
-            src="/ishtiaq.jpeg"
+            src="/ishtiaq.webp"
             alt="Photo of Ishtiaq"
+            loading="eager"
+            fetchPriority="high"
           />
           <h1 className="mx-auto text-2xl font-semibold tracking-widest text-center sm:text-3xl">
             ISHTIAQ UL HAQ SYED

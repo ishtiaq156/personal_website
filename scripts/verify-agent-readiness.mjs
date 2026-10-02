@@ -39,7 +39,12 @@ async function verifyHomepageHtml() {
   assert.match(body, /<link rel="canonical" href="https:\/\/www\.ishtiaqsyed\.com"/);
   assert.match(body, /<html[^>]+lang="en"/);
   assert.match(body, /<meta property="og:type" content="website"/);
-  assert.match(body, /<meta property="og:image" content="https:\/\//);
+  assert.match(body, /<meta property="og:image" content="https:\/\/[^\"]+\.webp"/);
+  assert.match(body, /rel="privacy-policy" href="https:\/\/www\.ishtiaqsyed\.com\/privacy"/);
+  assert.match(body, /rel="terms-of-service" href="https:\/\/www\.ishtiaqsyed\.com\/terms"/);
+  assert.match(body, /url=%2Fishtiaq\.webp/);
+  assert.match(body, /loading="eager"/);
+  assert.match(body, /fetchPriority="high"/i);
 
   const jsonLdMatch = body.match(
     /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/,
@@ -196,6 +201,8 @@ async function verifySecurityHeaders() {
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   assert.equal(response.headers.get("referrer-policy"), "strict-origin-when-cross-origin");
   assert.match(response.headers.get("permissions-policy") ?? "", /camera=\(\)/);
+  assert.match(response.headers.get("link") ?? "", /rel="privacy-policy"/);
+  assert.match(response.headers.get("link") ?? "", /rel="terms-of-service"/);
 }
 
 async function verifyTrustPages() {
