@@ -33,6 +33,10 @@ async function verifyHomepageHtml() {
   assert.ok(headerIncludes(response, "content-type", "text/html"));
   assert.match(body, /<h1[^>]*>\s*ISHTIAQ UL HAQ SYED\s*<\/h1>/i);
   assert.match(body, /<h2[^>]*>\s*SOFTWARE ENGINEER\s*<\/h2>/i);
+  assert.match(body, /<main\b[^>]*>/i);
+  assert.match(body, /<a[^>]*class="[^"]*h-12[^"]*"[^>]*href="\/"/i);
+  assert.match(body, /<a[^>]*class="[^"]*h-12[^"]*"[^>]*href="\/about"/i);
+  assert.doesNotMatch(body, /<a[^>]*>\s*<button\b/i);
   assert.doesNotMatch(body, /Who is Ishtiaq|What does this website cover/i);
   assert.match(body, /<title\b[^>]*>[^<]{30,70}<\/title>/);
   assert.match(body, /<meta name="description" content="[^\"]{120,150}"/);

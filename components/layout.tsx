@@ -119,23 +119,29 @@ export default function Layout({ children }: LayoutProps) {
           layoutId="nav"
           className="flex flex-wrap justify-center leading-6"
         >
-          <Link href="/">
-            <button className="w-24 py-1 text-xs leading-6 tracking-widest border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-sky-600 hover:border-sky-600 dark:hover:text-pink-500">
+          <Link
+            href="/"
+            className="flex items-center justify-center w-24 h-12 -my-2"
+          >
+            <span className="w-24 py-1 text-xs leading-6 tracking-widest text-center border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-sky-600 hover:border-sky-600 dark:hover:text-pink-500">
               HOME
-            </button>
+            </span>
           </Link>
-          <Link href="/about">
-            <button className="w-24 py-1 mx-2 text-xs leading-6 tracking-widest border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-sky-600 hover:border-sky-600 dark:hover:text-pink-500">
+          <Link
+            href="/about"
+            className="flex items-center justify-center w-24 h-12 mx-2 -my-2"
+          >
+            <span className="w-24 py-1 text-xs leading-6 tracking-widest text-center border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-sky-600 hover:border-sky-600 dark:hover:text-pink-500">
               ABOUT
-            </button>
+            </span>
           </Link>
         </motion.div>
-        <motion.div
+        <motion.main
           layoutId="border-div"
           className="flex flex-col items-center justify-center w-full py-8 my-6 border-t border-b border-gray-300 dark:border-white"
         >
           <AnimatePresence mode="wait">{children}</AnimatePresence>
-        </motion.div>
+        </motion.main>
         <motion.div
           layoutId="social-icons"
           className="flex items-center justify-center"
