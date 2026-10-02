@@ -2,11 +2,15 @@
   "name": "personal-website",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test:agent-readiness": "node scripts/verify-agent-readiness.mjs",
     "prettier": "prettier --write .",
     "prepare": "husky"
   },

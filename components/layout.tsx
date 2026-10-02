@@ -15,6 +15,15 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import dynamic from "next/dynamic";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import { useRouter } from "next/router";
+import {
+  INDEXABLE_PAGES,
+  PROFILE_IMAGE_URL,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from "../lib/siteContent";
 
 const DarkModeToggle = dynamic(() => import("dark-mode-toggle-animation"), {
   ssr: false,
@@ -33,6 +42,14 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps) {
   const [theme, setTheme] = useLocalStorage<string>("theme", "light");
+  const router = useRouter();
+  const routePath = router.asPath?.split(/[?#]/)[0] ?? "/";
+  const canonicalPath = routePath === "/" ? "" : routePath.replace(/\/+$/, "");
+  const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+  const page = INDEXABLE_PAGES.find(({ path }) => path === canonicalPath);
+  const pageTitle = canonicalPath
+    ? `${page?.title ?? SITE_NAME} | ${SITE_NAME}`
+    : SITE_TITLE;
 
   useEffect(() => {
     if (
@@ -65,14 +82,32 @@ export default function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-slate-700">
+    <div className="flex flex-col items-center justify-center w-screen min-h-screen py-12 text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-slate-700">
+      <a
+        className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:text-black"
+        href="#main-content"
+      >
+        Skip to main content
+      </a>
       <Head>
-        <title>Ishtiaq Syed</title>
+        <title>{pageTitle}</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <meta name="description" content={SITE_DESCRIPTION} />
+        <link rel="canonical" href={canonicalUrl} />
+        <link rel="describedby" href="/llms.txt" type="text/plain" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={SITE_DESCRIPTION} />
+        <meta property="og:image" content={PROFILE_IMAGE_URL} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={SITE_DESCRIPTION} />
+        <meta name="twitter:image" content={PROFILE_IMAGE_URL} />
       </Head>
       <div
-        style={{ minWidth: "24rem", maxWidth: "37rem" }}
-        className="flex flex-col items-center justify-center w-2/3"
+        style={{ maxWidth: "37rem" }}
+        className="flex flex-col items-center justify-center w-11/12 sm:w-2/3"
       >
         <div className="fixed cursor-pointer top-3 right-3">
           <DarkModeToggle
@@ -103,7 +138,9 @@ export default function Layout({ children }: LayoutProps) {
           layoutId="border-div"
           className="flex flex-col items-center justify-center w-full py-8 my-6 border-t border-b border-gray-300 dark:border-white"
         >
-          <AnimatePresence mode="wait">{children}</AnimatePresence>
+          <main id="main-content" className="w-full">
+            <AnimatePresence mode="wait">{children}</AnimatePresence>
+          </main>
         </motion.div>
         <motion.div
           layoutId="social-icons"
@@ -173,6 +210,29 @@ export default function Layout({ children }: LayoutProps) {
             <FontAwesomeIcon className="mr-6 text-2xl" icon={faWhatsapp} />
           </a>
         </motion.div>
+        <nav
+          aria-label="Site information"
+          className="flex justify-center gap-5 mt-6 text-xs"
+        >
+          <Link
+            className="hover:text-sky-600 dark:hover:text-pink-500"
+            href="/contact"
+          >
+            Contact
+          </Link>
+          <Link
+            className="hover:text-sky-600 dark:hover:text-pink-500"
+            href="/privacy"
+          >
+            Privacy
+          </Link>
+          <Link
+            className="hover:text-sky-600 dark:hover:text-pink-500"
+            href="/terms"
+          >
+            Terms
+          </Link>
+        </nav>
       </div>
       <SpeedInsights />
       <Analytics />

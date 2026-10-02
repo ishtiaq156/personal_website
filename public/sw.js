@@ -2,7 +2,11 @@ const CACHE_NAME = "ishtiaq-syed-website-v1";
 const urlsToCache = [
   "/",
   "/about",
+  "/contact",
+  "/privacy",
+  "/terms",
   "/projects",
+  "/ishtiaq.webp",
   "/ishtiaq.jpeg",
   "/favicon.ico",
   "/site.webmanifest",
@@ -44,7 +48,7 @@ self.addEventListener("fetch", function (event) {
         var cache = await caches.open(CACHE_NAME);
         await cache.put(event.request.url, res.clone());
         return res;
-      } catch (error) {
+      } catch {
         return caches.match(event.request);
       }
     })(),
