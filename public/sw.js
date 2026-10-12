@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "ishtiaq-syed-website-";
-const CACHE_NAME = `${CACHE_PREFIX}v2`;
+const CACHE_NAME = `${CACHE_PREFIX}v3`;
 const PAGE_PATHS = new Set([
   "/",
   "/about",
@@ -21,17 +21,42 @@ function pageCacheKey(pathname) {
   });
 }
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then((cache) =>
-        Promise.all([
-          ...Array.from(PAGE_PATHS, (path) => cache.add(pageCacheKey(path))),
-          ...Array.from(ASSET_PATHS, (path) => cache.add(path)),
-        ]),
-      ),
+async function cacheOfflinePages() {
+  const cache = await caches.open(CACHE_NAME);
+  const staticAssets = new Set();
+
+  await Promise.all(
+    Array.from(PAGE_PATHS, async (path) => {
+      const request = pageCacheKey(path);
+      const response = await fetch(request);
+
+      if (
+        !response.ok ||
+        !response.headers.get("Content-Type")?.includes("text/html")
+      ) {
+        throw new Error(`Could not cache offline page: ${path}`);
+      }
+
+      const html = await response.clone().text();
+      for (const match of html.matchAll(
+        /\b(?:src|href)="(\/_next\/static\/[^\"]+)"/g,
+      )) {
+        staticAssets.add(match[1]);
+      }
+
+      await cache.put(request, response);
+    }),
   );
+
+  if (staticAssets.size === 0) {
+    throw new Error("Could not find Next.js assets for offline pages");
+  }
+
+  await cache.addAll([...ASSET_PATHS, ...staticAssets]);
+}
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(cacheOfflinePages());
 });
 
 self.addEventListener("activate", (event) => {
@@ -55,6 +80,27 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
 
   if (request.method !== "GET" || url.origin !== self.location.origin) {
+    return;
+  }
+
+  if (url.pathname.startsWith("/_next/static/")) {
+    event.respondWith(
+      (async () => {
+        const cache = await caches.open(CACHE_NAME);
+        const cached = await cache.match(request, { ignoreVary: true });
+        if (cached) return cached;
+
+        const response = await fetch(request);
+        if (response.ok) {
+          try {
+            await cache.put(request, response.clone());
+          } catch {
+            // Quota errors should not prevent online assets from loading.
+          }
+        }
+        return response;
+      })(),
+    );
     return;
   }
 
@@ -82,6 +128,7 @@ self.addEventListener("fetch", (event) => {
       } catch {
         return (
           (await caches.match(cacheKey, { ignoreVary: isPage })) ||
+          (isPortraitImage && (await caches.match("/ishtiaq.webp"))) ||
           Response.error()
         );
       }

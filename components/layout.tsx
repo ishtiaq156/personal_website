@@ -102,7 +102,7 @@ export default function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out motion-reduce:transition-none dark:text-white dark:bg-slate-700">
+    <div className="flex flex-col items-center justify-center w-full min-h-svh text-gray-800 transition duration-1000 ease-in-out motion-reduce:transition-none dark:text-white dark:bg-slate-700">
       <Head>
         <title>{pageTitle}</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -127,7 +127,7 @@ export default function Layout({ children }: LayoutProps) {
         <meta name="twitter:image" content={PROFILE_IMAGE_URL} />
       </Head>
       <div
-        style={{ minWidth: "24rem", maxWidth: "37rem" }}
+        style={{ minWidth: "min(24rem, calc(100% - 2rem))", maxWidth: "37rem" }}
         className="flex flex-col items-center justify-center w-2/3"
       >
         <button
@@ -171,7 +171,7 @@ export default function Layout({ children }: LayoutProps) {
         </motion.main>
         <motion.div
           layoutId="social-icons"
-          className="flex items-center justify-center"
+          className="flex flex-wrap items-center justify-center gap-y-2"
         >
           <a
             className="text-gray-400 dark:text-white hover:text-sky-600 dark:hover:text-pink-500"
