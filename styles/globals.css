@@ -6,8 +6,31 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
+  html {
+    background-color: #ffffff;
+    color-scheme: light;
+    transition: background-color 1s ease-in-out;
+  }
+
+  html.dark {
+    background-color: #334155;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: inherit;
+    transition: background-color 1s ease-in-out;
+  }
+
   /* v4 Preflight removed cursor: pointer from buttons — restore it globally */
   button {
     cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    transition: none;
   }
 }

@@ -2,14 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { negotiateContentVariant } from "./lib/accept";
 import { markdownForPath, notFoundMarkdown } from "./lib/siteContent";
 
-const PUBLIC_FILE =
-  /\.(?:png|jpe?g|webp|avif|svg|ico|webmanifest|xml|txt|js)$/i;
 const VARY_HEADER = "Accept, Accept-Encoding";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/_next") || PUBLIC_FILE.test(pathname)) {
+  // Next.js still invokes Proxy for /_next/data, even when excluded below.
+  if (pathname.startsWith("/_next")) {
     return NextResponse.next();
   }
 
@@ -59,5 +58,5 @@ function markdownResponse(body: string, status: number) {
 }
 
 export const config = {
-  matcher: "/:path*",
+  matcher: "/((?!_next|_vercel|.*\\.).*)",
 };

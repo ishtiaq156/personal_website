@@ -15,8 +15,8 @@ A modern, responsive personal website showcasing my professional profile as a So
 
 ## 🚀 Tech Stack
 
-- **Framework**: [Next.js](https://nextjs.org/) (v15.3)
-- **UI Library**: [React](https://reactjs.org/) (v19.1)
+- **Framework**: [Next.js](https://nextjs.org/) (v16.4, Pages Router)
+- **UI Library**: [React](https://react.dev/) (v19.3)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Font Awesome](https://fontawesome.com/)
@@ -31,10 +31,10 @@ A modern, responsive personal website showcasing my professional profile as a So
    cd personal-website
    ```
 
-2. Install dependencies:
+2. Use Node.js 24 and install the locked dependencies:
 
    ```bash
-   npm install
+   npm ci
    ```
 
 3. Run the development server:
@@ -47,10 +47,10 @@ A modern, responsive personal website showcasing my professional profile as a So
 
 ## 📝 Usage
 
-- Modify `pages/index.js` to update the home page
-- Edit `pages/about.js` to update the about section
-- Update `pages/projects.js` to add your projects
-- Customize the layout in `components/layout.js`
+- Modify `pages/index.tsx` to update the home page
+- Edit `pages/about.tsx` to update the about section
+- Update `pages/projects.tsx` to add your projects
+- Customize the layout in `components/layout.tsx`
 
 ## 🚢 Deployment
 
@@ -71,4 +71,4 @@ This site is deployed on Vercel. To deploy your own version:
 
 ## 📄 License
 
-This project is open source and available for personal and educational use.
+No license file is currently included in this repository.

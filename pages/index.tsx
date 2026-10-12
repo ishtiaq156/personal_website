@@ -65,42 +65,44 @@ const Home: NextPage = () => {
   };
 
   return (
-    <Layout>
+    <>
       <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </Head>
-      <motion.div
-        key="home"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="flex flex-col items-center justify-center"
-      >
-        <div className="flex flex-col items-center justify-center">
-          <div className="relative mb-8 h-32 w-32 shrink-0">
-            <Image
-              fill
-              sizes="128px"
-              className="rounded-full object-cover"
-              src="/ishtiaq.webp"
-              alt="Photo of Ishtiaq"
-              loading="eager"
-              fetchPriority="high"
-            />
+      <Layout>
+        <motion.div
+          key="home"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-col items-center justify-center"
+        >
+          <div className="flex flex-col items-center justify-center">
+            <div className="relative mb-8 h-32 w-32 shrink-0">
+              <Image
+                fill
+                sizes="128px"
+                className="rounded-full object-cover"
+                src="/ishtiaq.webp"
+                alt="Photo of Ishtiaq"
+                loading="eager"
+                fetchPriority="high"
+              />
+            </div>
+            <h1 className="mx-auto text-2xl font-semibold tracking-widest text-center sm:text-3xl">
+              ISHTIAQ UL HAQ SYED
+            </h1>
+            <hr className="w-16 my-8 border-gray-300" />
+            <h2 className="text-lg tracking-widest text-center">
+              SOFTWARE ENGINEER
+            </h2>
           </div>
-          <h1 className="mx-auto text-2xl font-semibold tracking-widest text-center sm:text-3xl">
-            ISHTIAQ UL HAQ SYED
-          </h1>
-          <hr className="w-16 my-8 border-gray-300" />
-          <h2 className="text-lg tracking-widest text-center">
-            SOFTWARE ENGINEER
-          </h2>
-        </div>
-      </motion.div>
-    </Layout>
+        </motion.div>
+      </Layout>
+    </>
   );
 };
 

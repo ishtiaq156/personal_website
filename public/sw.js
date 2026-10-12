@@ -1,56 +1,104 @@
-const CACHE_NAME = "ishtiaq-syed-website-v1";
-const urlsToCache = [
+const CACHE_PREFIX = "ishtiaq-syed-website-";
+const CACHE_NAME = `${CACHE_PREFIX}v2`;
+const PAGE_PATHS = new Set([
   "/",
   "/about",
   "/contact",
   "/privacy",
   "/terms",
   "/projects",
+]);
+const ASSET_PATHS = new Set([
   "/ishtiaq.webp",
   "/ishtiaq.jpeg",
   "/favicon.ico",
   "/site.webmanifest",
-];
+]);
 
-// Install event - pre-cache critical assets
-self.addEventListener("install", function (event) {
+function pageCacheKey(pathname) {
+  return new Request(new URL(pathname, self.location.origin), {
+    headers: { Accept: "text/html" },
+  });
+}
+
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      console.log("Opened cache");
-      return cache.addAll(urlsToCache);
-    }),
+    caches
+      .open(CACHE_NAME)
+      .then((cache) =>
+        Promise.all([
+          ...Array.from(PAGE_PATHS, (path) => cache.add(pageCacheKey(path))),
+          ...Array.from(ASSET_PATHS, (path) => cache.add(path)),
+        ]),
+      ),
   );
 });
 
-// Activate event - clean up old caches
-self.addEventListener("activate", function (event) {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then(function (cacheNames) {
-      return Promise.all(
-        cacheNames
-          .filter(function (cacheName) {
-            return cacheName !== CACHE_NAME;
-          })
-          .map(function (cacheName) {
-            return caches.delete(cacheName);
-          }),
-      );
-    }),
+    caches
+      .keys()
+      .then((names) =>
+        Promise.all(
+          names
+            .filter(
+              (name) => name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME,
+            )
+            .map((name) => caches.delete(name)),
+        ),
+      ),
   );
 });
 
-// Fetch event - network first, fallback to cache
-self.addEventListener("fetch", function (event) {
+self.addEventListener("fetch", (event) => {
+  const request = event.request;
+  const url = new URL(request.url);
+
+  if (request.method !== "GET" || url.origin !== self.location.origin) {
+    return;
+  }
+
+  const isPage =
+    request.mode === "navigate" &&
+    request.headers.get("Accept")?.includes("text/html") &&
+    PAGE_PATHS.has(url.pathname);
+  const isPortraitImage =
+    url.pathname === "/_next/image" &&
+    url.searchParams.get("url") === "/ishtiaq.webp";
+  const isAsset = ASSET_PATHS.has(url.pathname) || isPortraitImage;
+
+  if (!isPage && !isAsset) {
+    return;
+  }
+
+  const cacheKey = isPage ? pageCacheKey(url.pathname) : request;
+
   event.respondWith(
-    (async function () {
+    (async () => {
+      let response;
+
       try {
-        var res = await fetch(event.request);
-        var cache = await caches.open(CACHE_NAME);
-        await cache.put(event.request.url, res.clone());
-        return res;
+        response = await fetch(request);
       } catch {
-        return caches.match(event.request);
+        return (
+          (await caches.match(cacheKey, { ignoreVary: isPage })) ||
+          Response.error()
+        );
       }
+
+      const isExpectedPage =
+        isPage && response.headers.get("Content-Type")?.includes("text/html");
+
+      if (response.ok && (isExpectedPage || isAsset)) {
+        try {
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put(cacheKey, response.clone());
+        } catch {
+          // Cache storage can be unavailable or full; keep the network response.
+        }
+      }
+
+      return response;
     })(),
   );
 });

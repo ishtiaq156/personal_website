@@ -9,13 +9,10 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faBlog, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect, ReactNode } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import dynamic from "next/dynamic";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import React, { useEffect, useSyncExternalStore, ReactNode } from "react";
 import { useRouter } from "next/router";
+import DarkModeIcon from "./dark-mode-icon";
 import {
   INDEXABLE_PAGES,
   PROFILE_IMAGE_URL,
@@ -25,23 +22,61 @@ import {
   SITE_URL,
 } from "../lib/siteContent";
 
-const DarkModeToggle = dynamic(() => import("dark-mode-toggle-animation"), {
-  ssr: false,
-}) as React.ComponentType<{
-  mode?: "sun" | "moon";
-  onClick?: () => void;
-  width?: string;
-  moonColor?: string;
-  sunColor?: string;
-  animationDuration?: number;
-}>;
-
 type LayoutProps = {
   children: ReactNode;
 };
 
+type Theme = "light" | "dark";
+const THEME_CHANGE_EVENT = "site-theme-change";
+let temporaryTheme: Theme | null = null;
+
+function readTheme(): Theme {
+  if (typeof window === "undefined") {
+    return "light";
+  }
+
+  if (temporaryTheme !== null) return temporaryTheme;
+
+  try {
+    const saved = window.localStorage.getItem("theme");
+    if (saved === "dark" || saved === '"dark"') return "dark";
+    if (saved === "light" || saved === '"light"') return "light";
+  } catch {
+    // Storage can be unavailable in private browsing or restricted contexts.
+  }
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function subscribeToTheme(onChange: () => void) {
+  const preference = window.matchMedia("(prefers-color-scheme: dark)");
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === "theme" || event.key === null) {
+      temporaryTheme = null;
+      onChange();
+    }
+  };
+
+  window.addEventListener("storage", onStorage);
+  window.addEventListener(THEME_CHANGE_EVENT, onChange);
+  preference.addEventListener("change", onChange);
+
+  return () => {
+    window.removeEventListener("storage", onStorage);
+    window.removeEventListener(THEME_CHANGE_EVENT, onChange);
+    preference.removeEventListener("change", onChange);
+  };
+}
+
 export default function Layout({ children }: LayoutProps) {
-  const [theme, setTheme] = useLocalStorage<string>("theme", "light");
+  const theme = useSyncExternalStore(
+    subscribeToTheme,
+    readTheme,
+    () => "light",
+  );
+  const shouldReduceMotion = useReducedMotion();
   const router = useRouter();
   const routePath = router.asPath?.split(/[?#]/)[0] ?? "/";
   const canonicalPath = routePath === "/" ? "" : routePath.replace(/\/+$/, "");
@@ -52,40 +87,30 @@ export default function Layout({ children }: LayoutProps) {
     : SITE_TITLE;
 
   useEffect(() => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.getElementsByTagName("html")[0].classList.add("dark");
-    } else {
-      document.getElementsByTagName("html")[0].classList.remove("dark");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (theme === "dark") {
-      document.getElementsByTagName("html")[0].classList.add("dark");
-      localStorage.theme = "dark";
-    } else {
-      document.getElementsByTagName("html")[0].classList.remove("dark");
-      localStorage.theme = "light";
-    }
+    document.documentElement.classList.toggle("dark", readTheme() === "dark");
   }, [theme]);
 
   const toggleDarkMode = () => {
-    if (theme === "dark") {
-      setTheme("light");
-    } else {
-      setTheme("dark");
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    temporaryTheme = nextTheme;
+    try {
+      window.localStorage.setItem("theme", nextTheme);
+    } catch {
+      // The theme still works for this visit if storage is unavailable.
     }
+    window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-slate-700">
+    <div className="flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out motion-reduce:transition-none dark:text-white dark:bg-slate-700">
       <Head>
         <title>{pageTitle}</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <meta
+          name="theme-color"
+          content={theme === "dark" ? "#334155" : "#ffffff"}
+          key="theme-color"
+        />
         <meta name="description" content={SITE_DESCRIPTION} />
         <link rel="canonical" href={canonicalUrl} />
         <link rel="describedby" href="/llms.txt" type="text/plain" />
@@ -105,16 +130,18 @@ export default function Layout({ children }: LayoutProps) {
         style={{ minWidth: "24rem", maxWidth: "37rem" }}
         className="flex flex-col items-center justify-center w-2/3"
       >
-        <div className="fixed cursor-pointer top-3 right-3">
-          <DarkModeToggle
+        <button
+          type="button"
+          className="fixed top-3 right-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+          onClick={toggleDarkMode}
+          aria-label="Dark mode"
+          aria-pressed={theme === "dark"}
+        >
+          <DarkModeIcon
             mode={theme === "dark" ? "sun" : "moon"}
-            onClick={toggleDarkMode}
-            width="3rem"
-            moonColor="#334155"
-            sunColor="white"
-            animationDuration={1}
+            reducedMotion={shouldReduceMotion ?? false}
           />
-        </div>
+        </button>
         <motion.div
           layoutId="nav"
           className="flex flex-wrap justify-center leading-6"
@@ -211,8 +238,6 @@ export default function Layout({ children }: LayoutProps) {
           </a>
         </motion.div>
       </div>
-      <SpeedInsights />
-      <Analytics />
     </div>
   );
 }
