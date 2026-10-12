@@ -80,15 +80,17 @@ const Home: NextPage = () => {
         className="flex flex-col items-center justify-center"
       >
         <div className="flex flex-col items-center justify-center">
-          <Image
-            width="200"
-            height="200"
-            className="w-32 h-32 mb-8 rounded-full"
-            src="/ishtiaq.webp"
-            alt="Photo of Ishtiaq"
-            loading="eager"
-            fetchPriority="high"
-          />
+          <div className="relative mb-8 h-32 w-32 shrink-0">
+            <Image
+              fill
+              sizes="128px"
+              className="rounded-full object-cover"
+              src="/ishtiaq.webp"
+              alt="Photo of Ishtiaq"
+              loading="eager"
+              fetchPriority="high"
+            />
+          </div>
           <h1 className="mx-auto text-2xl font-semibold tracking-widest text-center sm:text-3xl">
             ISHTIAQ UL HAQ SYED
           </h1>
